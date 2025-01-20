@@ -20,9 +20,8 @@ class Triangle {
         if ((a + b < c) || (a + c < b) || (b + c < a)) {
             throw new Error("Треугольник с такими сторонами не существует");
         }
-
         this.a = a,
-            this.b = b;
+        this.b = b;
         this.c = c;
     }
 
@@ -34,7 +33,6 @@ class Triangle {
         let halfP = 0.5 * this.perimeter;
         return Number((Math.sqrt(halfP * (halfP - this.a) * (halfP - this.b) * (halfP - this.c))).toFixed(3));
     }
-
 }
 
 function getTriangle(a, b, c) {
