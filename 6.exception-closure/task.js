@@ -26,29 +26,30 @@ class Triangle {
         this.c = c;
     }
 
-    get Perimeter() {
-        let p = this.a + this.b + this.c;
-        return p;
+    get perimeter() {
+        return this.a + this.b + this.c;
     }
 
-    get Area() {
-        let halfP = 0.5 * this.Perimeter;
-        let s = Number((Math.sqrt(halfP * (halfP - this.a) * (halfP - this.b) * (halfP - this.c))).toFixed(3));
-        return s;
+    get area() {
+        let halfP = 0.5 * this.perimeter;
+        return Number((Math.sqrt(halfP * (halfP - this.a) * (halfP - this.b) * (halfP - this.c))).toFixed(3));
     }
 
 }
 
-// function getTriangle(a, b, c) {
-//     try {
-//         return new Triangle(a, b, c);
-//     }
-//     catch (exception) {
-// не понимаю как вернуть  п2:
-// В случае перехвата исключения возвращайте объект с двумя геттерами area и perimeter, которые возвращают строку: «Ошибка! Треугольник не существует».
-//         let noTriangle = {};
-//         noTriangle.Perimeter ??? "Ошибка! Треугольник не существует";
-//         noTriangle.Area ??? "Ошибка! Треугольник не существует";
-//         return noTriangle;
-//     }
-// }
+function getTriangle(a, b, c) {
+    try {
+        return new Triangle(a, b, c);
+    }
+    catch (exception) {
+        let noTriangle = {
+            get perimeter() {
+                return "Ошибка! Треугольник не существует";
+            },
+            get area() {
+                return "Ошибка! Треугольник не существует";
+            }
+        }
+        return noTriangle;
+    }
+}
