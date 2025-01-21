@@ -17,18 +17,29 @@ class AlarmClock {
     }
 
     removeClock(time) {
-        this.alarmCollection = this.alarmCollection.filter(item => item !== time);
+        this.alarmCollection = this.alarmCollection.filter(item => item.time !== time);
     }
 
     getCurrentFormattedTime() {
-        let nowDate = new Date();
-        return (`${nowDate.getHours()}:${nowDate.getMinutes()}`);
+        return new Date().toLocaleTimeString("ru-Ru", { 
+            hour: "2-digit", 
+            minute: "2-digit" 
+        });
     }
 
     start() {
-        if(this.intervalId === undefined || this.intervalId === null) {
-            this.intervalId = setInterval(() => this.alarmCollection.forEach(item => item), 1000);
+        if (this.intervalId !== null) {
+            return;
         }
+        
+        this.intervalId = setInterval(() => {
+            this.alarmCollection.forEach(item => {
+                if (item.time === this.getCurrentFormattedTime() && item.canCall) {
+                    item.canCall = false;
+                    item.callback();
+                }
+            });
+        }, 1000);
     }
 
     stop() {
@@ -37,7 +48,7 @@ class AlarmClock {
     }
 
     resetAllCalls() {
-        this.alarmCollection.forEach((item) => {item.canCall = true});
+        this.alarmCollection.forEach((item) => { item.canCall = true });
     }
 
     clearAlarms() {
